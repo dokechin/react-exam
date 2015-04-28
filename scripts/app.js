@@ -1,26 +1,54 @@
 /** @jsx React.DOM */
+var A =  React.createClass({
+  render: function() {
+    console.log("A render");
+    return <div> {this.props.name}
+    </div>
+    ;
+  }
+});
+var B =  React.createClass({
+  render: function() {
+    console.log("B render");
+    return <div> {this.props.name}
+    </div>
+    ;
+  }
+});
 var MyForm =  React.createClass({
   getInitialState: function() {
-    return {helloTo: "Hello World"};
+    return {helloToA: "Hello World",helloToB: "Hello React"};
   },
-  handleChange: function (event){
+  handleChangeA: function (event){
     this.setState({
-      helloTo: event.target.value
+      helloToA: event.target.value
+    });
+  },
+  handleChangeB: function (event){
+    this.setState({
+      helloToB: event.target.value
     });
   },
   submitHandler: function (event) {
     event.preventDefault();
-    alert( this.state.helloTo);
+    alert( this.state.helloToA + this.state.helloToB);
   },
   render: function() {
     return <form onSubmit={this.submitHandler}>
       <input
         type="text"
-        value={this.state.helloTo}
-        onChange={this.handleChange} />
+        value={this.state.helloToA}
+        onChange={this.handleChangeA} />
+      <br />
+      <input
+        type="text"
+        value={this.state.helloToB}
+        onChange={this.handleChangeB} />
       <br />
       <button type="submit">送信</button>
-    </form>;
+      <A name={this.state.helloToA}></A><B name={this.state.helloToB}></B>
+    </form>
+    ;
   }
 });
 
